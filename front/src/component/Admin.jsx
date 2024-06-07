@@ -1,0 +1,32 @@
+import React, { useState } from 'react';
+import CreateProducts from './products/CreateProducts';
+import UpdateProducts from './products/UpdateProducts';
+import DeleteProducts from './products/DeleteProducts';
+
+const Admin = () => {
+    const [selectedForm, setSelectedForm] = useState(null);
+
+    const showForm = (form) => {
+        setSelectedForm(form);
+    };
+
+    return (
+        <div className="flex justify-center items-center">
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="text-3xl font-bold mb-4 text-center">Admin Dashboard</h1>
+                <div className="flex justify-center space-x-4 mb-4">
+                    <button onClick={() => showForm('create')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create Product</button>
+                    <button onClick={() => showForm('update')} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Update Product</button>
+                    <button onClick={() => showForm('delete')} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete Product</button>
+                </div>
+                <div className="mt-8">
+                    {selectedForm === 'create' && <CreateProducts />}
+                    {selectedForm === 'update' && <UpdateProducts />}
+                    {selectedForm === 'delete' && <DeleteProducts />}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Admin;
