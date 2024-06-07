@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const CreateProducts = () => {
     const [title, setTitle] = useState('');
@@ -6,13 +6,53 @@ const CreateProducts = () => {
     const [color, setColor] = useState('');
     const [price, setPrice] = useState('');
     const [image, setImage] = useState('');
+    const [createMessage, setCreateMessage] = useState('');
+    const [isMessageVisible, setMessageVisibility] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const product = { title, description, color, price, image };
-        console.log('Product created:', product);
-        // Here you can add your logic to send this data to your backend
+        // Convertir le prix en nombre
+        const priceAsNumber = parseFloat(price);
+        const product = { title, description, color, price: priceAsNumber, image };
+
+        try {
+            const response = await fetch('http://localhost:8000/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(product)
+            });
+
+            if (response.ok) {
+                console.log('Product created successfully:', product);
+                setCreateMessage('Product created successfully.');
+                setMessageVisibility(true);
+                // Réinitialisation des champs après création réussie
+                setTitle('');
+                setDescription('');
+                setColor('');
+                setPrice('');
+                setImage('');
+            } else {
+                console.error('Failed to create product:', response.statusText);
+                setCreateMessage('Failed to create product. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error creating product:', error);
+            setCreateMessage('An error occurred while creating the product. Please try again later.');
+        }
     };
+
+    useEffect(() => {
+        let timer;
+        if (isMessageVisible) {
+            timer = setTimeout(() => {
+                setMessageVisibility(false);
+            }, 3000); // Change the timeout value as per your requirement (3 seconds here)
+        }
+        return () => clearTimeout(timer);
+    }, [isMessageVisible]);
 
     return (
         <div className="h-[calc(100vh-20rem)] flex items-center justify-center bg-[#242424]">
@@ -82,6 +122,11 @@ const CreateProducts = () => {
                             required
                         ></textarea>
                     </div>
+                    {createMessage && isMessageVisible && (
+                        <div className="bg-green-500 text-white p-4 rounded-md text-center absolute top-12 left-0 right-0 mt-4">
+                            {createMessage}
+                        </div>
+                    )}
                     <div className="text-center">
                         <button
                             type="submit"

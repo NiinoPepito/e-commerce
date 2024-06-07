@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const UpdateProducts = () => {
-    // Example product list
-    const products = [
-        { id: 1, title: 'Smartphone XYZ', description: 'A great smartphone.', color: 'Black', price: '499.99', image: 'https://via.placeholder.com/300' },
-        { id: 2, title: 'Laptop ABC', description: 'A powerful laptop.', color: 'Silver', price: '999.99', image: 'https://via.placeholder.com/300' },
-        // Add more products as needed
-    ];
-
+    const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [color, setColor] = useState('');
     const [price, setPrice] = useState('');
     const [image, setImage] = useState('');
+    const [updateMessage, setUpdateMessage] = useState('');
+    const [isMessageVisible, setMessageVisibility] = useState(false);
+
+    useEffect(() => {
+        // Fetch products from API
+        axios.get('http://localhost:8000/api/products')
+            .then(response => {
+                const sortedProducts = response.data.sort((a, b) => a.id - b.id);
+                setProducts(sortedProducts);
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
+    }, []);
 
     const handleProductChange = (e) => {
         const productId = parseInt(e.target.value);
@@ -38,9 +47,34 @@ const UpdateProducts = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (selectedProduct) {
-            const updatedProduct = { ...selectedProduct, title, description, color, price, image };
-            console.log('Product updated:', updatedProduct);
-            // Here you can add your logic to send this data to your backend
+            const updatedProduct = {
+                title,
+                description,
+                color,
+                price: parseInt(price), // Convert price to int
+                image
+            };
+
+            // Update product via API
+            axios.put(`http://localhost:8000/api/products/${selectedProduct.id}`, updatedProduct)
+                .then(response => {
+                    console.log('Product updated:', response.data);
+                    setUpdateMessage('Product updated successfully.');
+                    setMessageVisibility(true);
+
+                    // Update the product list with the updated product
+                    setProducts(products.map(p => p.id === selectedProduct.id ? response.data : p));
+                    setSelectedProduct(response.data);
+
+                    // Hide message after 3 seconds
+                    setTimeout(() => {
+                        setUpdateMessage('');
+                        setMessageVisibility(false);
+                    }, 3000);
+                })
+                .catch(error => {
+                    console.error('Error updating product:', error);
+                });
         }
     };
 
@@ -58,7 +92,7 @@ const UpdateProducts = () => {
                         >
                             <option value="">Select a product</option>
                             {products.map(product => (
-                                <option key={product.id} value={product.id}>{product.title}</option>
+                                <option key={product.id} value={product.id}>ID : {product.id} | {product.title}</option>
                             ))}
                         </select>
                     </div>
@@ -127,11 +161,15 @@ const UpdateProducts = () => {
                                     required
                                 ></textarea>
                             </div>
+                            {updateMessage && isMessageVisible && (
+                                <div className="bg-green-500 text-white p-4 rounded-md text-center absolute top-12 left-0 right-0 mt-4">
+                                    {updateMessage}
+                                </div>
+                            )}
                             <div className="text-center">
                                 <button
                                     type="submit"
-                                    className="bg-blue-500 hover
-                                    bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 >
                                     Update Product
                                 </button>

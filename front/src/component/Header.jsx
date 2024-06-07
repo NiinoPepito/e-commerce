@@ -11,9 +11,19 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
 
-    // Fonction pour basculer l'état du menu
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+    // État pour gérer la connexion de l'utilisateur
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    // Gestion de l'état de connexion lors du chargement initial
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        setIsLoggedIn(!!token);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('authToken');
+        setIsLoggedIn(false);
+        window.location.href = '/connexion';
     };
 
     // Gestion de la fermeture du menu lorsque l'utilisateur clique en dehors
@@ -53,37 +63,40 @@ const Header = () => {
                             <FaShoppingCart className="mr-2" /> Panier
                         </Link>
                     </li>
+                    {/* Menu utilisateur */}
                     <li>
                         <div className="relative" ref={menuRef}>
-                            <button onClick={toggleMenu} className="focus:outline-none">
+                            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="focus:outline-none">
                                 <FaUser className="mr-2 mt-2.5" />
                             </button>
                             {/* Affichage conditionnel du menu déroulant */}
                             {isMenuOpen && (
                                 <ul className="absolute top-10 right-0 bg-purple-800 text-white rounded-md p-2 border-2 border-purple-400">
-                                    <li>
-                                        <Link to="/connexion"
-                                              className={`hover:text-fuchsia-500 ${currentPath === '/connexion' ? 'text-fuchsia-500' : ''}`}>
-                                            Connexion
-                                        </Link>
-                                    </li>
-                                    <button
-                                        onClick={"déconnecter"}
-                                        className="hover:text-fuchsia-500">
-                                        Déconnexion
-                                    </button>
-                                    <li>
-                                        <Link to="/profil"
-                                              className={`hover:text-fuchsia-500 ${currentPath === '/profil' ? 'text-fuchsia-500' : ''}`}>
-                                            Profil
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/admin"
-                                              className={`hover:text-fuchsia-500 ${currentPath === '/admin' ? 'text-fuchsia-500' : ''}`}>
-                                            Admin
-                                        </Link>
-                                    </li>
+                                    {isLoggedIn ? (
+                                        <>
+                                            <li>
+                                                <button onClick={handleLogout} className="hover:text-fuchsia-500">
+                                                    Déconnexion
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <Link to="/profil" className={`hover:text-fuchsia-500 ${currentPath === '/profil' ? 'text-fuchsia-500' : ''}`}>
+                                                    Profil
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/admin" className={`hover:text-fuchsia-500 ${currentPath === '/admin' ? 'text-fuchsia-500' : ''}`}>
+                                                    Admin
+                                                </Link>
+                                            </li>
+                                        </>
+                                    ) : (
+                                        <li>
+                                            <Link to="/connexion" className={`hover:text-fuchsia-500 ${currentPath === '/connexion' ? 'text-fuchsia-500' : ''}`}>
+                                                Connexion
+                                            </Link>
+                                        </li>
+                                    )}
                                 </ul>
                             )}
                         </div>

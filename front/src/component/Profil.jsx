@@ -9,6 +9,8 @@ const Profil = () => {
         // Autres informations...
     };
 
+    console.log(localStorage.getItem('authToken'));
+
     const lastOrder = {
         id: 123456,
         date: "2024-06-06",

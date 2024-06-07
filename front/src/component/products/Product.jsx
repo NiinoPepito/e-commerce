@@ -1,16 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { useParams } from 'react-router-dom';
 
-const ProductDetail = () => {
-    // Données fictives du produit
-    const product = {
-        title: "Smartphone XYZ",
-        description: "Un smartphone dernier cri avec des fonctionnalités avancées.",
-        price: "$499.99",
-        color: "Noir",
-        image: "https://via.placeholder.com/300",
-    };
+const Product = () => {
+    const { id } = useParams();
+
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await fetch(`http://localhost:8000/api/products/${id}`);
+                const data = await response.json();
+                setProduct(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching product:', error);
+                setLoading(false);
+            }
+        };
+
+        fetchProduct();
+    }, [id]);
 
     const [quantity, setQuantity] = useState(1);
 
@@ -23,6 +36,10 @@ const ProductDetail = () => {
     const increaseQuantity = () => {
         setQuantity(quantity + 1);
     };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="container mx-auto p-4">
@@ -54,4 +71,4 @@ const ProductDetail = () => {
     );
 };
 
-export default ProductDetail;
+export default Product;

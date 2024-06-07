@@ -18,7 +18,7 @@ function App() {
               <Route path="/connexion" element={<ConnexionPage />} />
               <Route path="/inscription" element={<RegisterPage />} />
               <Route path="/products" element={<ProductsPage />} />
-              <Route path="/product/:productId" element={<ProductPage />} />
+              <Route path="/product/:id" element={<ProductPage />} />
               <Route path="/order" element={<OrderPage />} />
               <Route path="/profil" element={<ProfilPage />} />
               <Route path="/admin" element={<AdminPage />} />

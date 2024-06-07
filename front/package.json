@@ -12,6 +12,10 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "axios": "^1.7.2",
+    "js-cookie": "^3.0.5",
+    "json-stable-stringify-without-jsonify": "^1.0.1",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
