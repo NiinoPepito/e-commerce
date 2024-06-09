@@ -69,16 +69,16 @@ const DeleteProducts = () => {
     return (
         <div className={`flex items-center justify-center bg-[#242424] ${selectedProduct ? 'h-[calc(100vh-15rem)]' : 'h-[calc(100vh-36rem)]'}`}>
             <div className="bg-gray-800 text-white p-8 rounded-lg shadow-lg w-full max-w-3xl">
-                <h1 className="text-3xl font-bold mb-4 text-center">Delete Product</h1>
+                <h1 className="text-3xl font-bold mb-4 text-center">Supprimer un produit</h1>
                 <form onSubmit={handleDelete} className="space-y-4">
                     <div>
-                        <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="product">Select Product</label>
+                        <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="product">Sélectionner un produit</label>
                         <select
                             id="product"
                             onChange={handleProductChange}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         >
-                            <option value="">Select a product</option>
+                            <option value="">Sélectionner un produit</option>
                             {products.map(product => (
                                 <option key={product.id} value={product.id}>ID : {product.id} | {product.title}</option>
                             ))}
@@ -103,7 +103,7 @@ const DeleteProducts = () => {
                                     type="submit"
                                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 >
-                                    Delete Product
+                                    Supprimer
                                 </button>
                             </div>
                         </>

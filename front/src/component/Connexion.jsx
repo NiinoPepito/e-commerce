@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Connexion = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
@@ -40,10 +41,11 @@ const Connexion = () => {
             console.log('Success:', data);
 
             localStorage.setItem('authToken', data.access_token);
-            localStorage.setItem('loginSuccess', 'Connexion reussie');
-            window.location.href = '/profil';
+            localStorage.setItem('loginSuccess', 'Connexion réussie');
+            window.location.href = '/order';
         } catch (error) {
             console.error('Error:', error);
+            setErrorMessage('Login ou mot de passe incorrect.');
         }
     };
 
@@ -82,6 +84,9 @@ const Connexion = () => {
                             {passwordVisible ? <FaEyeSlash /> : <FaEye />}
                         </div>
                     </div>
+                    {errorMessage && (
+                        <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
+                    )}
                     <div className="flex flex-col items-center">
                         <button
                             type="submit"

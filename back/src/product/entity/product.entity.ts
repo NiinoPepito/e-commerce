@@ -16,7 +16,7 @@ export class Product {
   description: string;
 
   @Column({ type: 'varchar' })
-    image: string;
+  image: string;
 
   @Column({ type: 'varchar' })
   color: string;

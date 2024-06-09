@@ -58,11 +58,13 @@ const Header = () => {
                             <FaBoxOpen className="mr-2" /> Produits
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/order" className={`hover:bg-purple-950 rounded-md px-3 py-1.5 inline-flex items-center ${currentPath === '/order' ? 'text-fuchsia-500' : ''}`}>
-                            <FaShoppingCart className="mr-2" /> Panier
-                        </Link>
-                    </li>
+                    {isLoggedIn && (
+                        <li>
+                            <Link to="/order" className={`hover:bg-purple-950 rounded-md px-3 py-1.5 inline-flex items-center ${currentPath === '/order' ? 'text-fuchsia-500' : ''}`}>
+                                <FaShoppingCart className="mr-2" /> Panier
+                            </Link>
+                        </li>
+                    )}
                     {/* Menu utilisateur */}
                     <li>
                         <div className="relative" ref={menuRef}>
@@ -78,11 +80,6 @@ const Header = () => {
                                                 <button onClick={handleLogout} className="hover:text-fuchsia-500">
                                                     Déconnexion
                                                 </button>
-                                            </li>
-                                            <li>
-                                                <Link to="/profil" className={`hover:text-fuchsia-500 ${currentPath === '/profil' ? 'text-fuchsia-500' : ''}`}>
-                                                    Profil
-                                                </Link>
                                             </li>
                                             <li>
                                                 <Link to="/admin" className={`hover:text-fuchsia-500 ${currentPath === '/admin' ? 'text-fuchsia-500' : ''}`}>

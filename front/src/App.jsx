@@ -20,7 +20,6 @@ function App() {
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/product/:id" element={<ProductPage />} />
               <Route path="/order" element={<OrderPage />} />
-              <Route path="/profil" element={<ProfilPage />} />
               <Route path="/admin" element={<AdminPage />} />
           </Routes>
       </BrowserRouter>

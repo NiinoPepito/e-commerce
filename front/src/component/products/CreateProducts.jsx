@@ -57,44 +57,44 @@ const CreateProducts = () => {
     return (
         <div className="h-[calc(100vh-20rem)] flex items-center justify-center bg-[#242424]">
             <div className="bg-gray-800 text-white p-8 rounded-lg shadow-lg w-full max-w-3xl">
-                <h1 className="text-3xl font-bold mb-4 text-center">Create Product</h1>
+                <h1 className="text-3xl font-bold mb-4 text-center">Créer un produit</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="title">Title</label>
+                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="title">Titre</label>
                             <input
                                 type="text"
                                 id="title"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Enter product title"
+                                placeholder="Titre du produit"
                                 required
                             />
                         </div>
                         <div>
-                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="color">Color</label>
+                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="color">Couleur</label>
                             <input
                                 type="text"
                                 id="color"
                                 value={color}
                                 onChange={(e) => setColor(e.target.value)}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Enter product color"
+                                placeholder="Couleur du produit"
                                 required
                             />
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="price">Price</label>
+                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="price">Prix</label>
                             <input
                                 type="text"
                                 id="price"
                                 value={price}
                                 onChange={(e) => setPrice(e.target.value)}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Enter product price"
+                                placeholder="Prix du produit"
                                 required
                             />
                         </div>
@@ -106,7 +106,7 @@ const CreateProducts = () => {
                                 value={image}
                                 onChange={(e) => setImage(e.target.value)}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Enter product image URL"
+                                placeholder="URL de l'image"
                                 required
                             />
                         </div>
@@ -118,7 +118,7 @@ const CreateProducts = () => {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Enter product description"
+                            placeholder="Description du produit"
                             required
                         ></textarea>
                     </div>
@@ -132,7 +132,7 @@ const CreateProducts = () => {
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
-                            Create Product
+                            Créer
                         </button>
                     </div>
                 </form>

@@ -13,6 +13,7 @@ export class UpdateShippingOrderService {
   async updateShipping(id: number, data : OrderUpdateShippingDto) {
     const order = await this.orderRepository.findOneBy({ id });
     order.updateShipping(data);
+    console.log(order);
     return await this.orderRepository.save(order);
   }
 }

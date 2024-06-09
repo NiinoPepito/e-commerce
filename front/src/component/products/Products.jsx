@@ -47,7 +47,7 @@ const Products = () => {
 
     return (
         <div className="container mx-auto mt-8 px-4">
-            <h1 className="text-3xl font-bold mb-4 text-center">Products</h1>
+            <h1 className="text-3xl font-bold mb-4 text-center">Produits</h1>
             {loading ? (
                 <div className="text-center">Loading...</div>
             ) : (
@@ -62,10 +62,6 @@ const Products = () => {
                                         <h2 className="text-gray-900 font-semibold text-lg">{product.title}</h2>
                                         <p className="text-gray-700 mt-1">{product.color}</p>
                                         <p className="text-gray-700 mt-1">{product.price} €</p>
-                                        <button
-                                            className="mt-2 bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:bg-purple-900">Add
-                                            to Cart
-                                        </button>
                                     </div>
                                 </div>
                             </Link>

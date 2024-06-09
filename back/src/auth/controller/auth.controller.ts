@@ -18,10 +18,4 @@ export class AuthController {
   signIn(@Body() signInDto: Record<string, any>) {
     return this.authService.signIn(signInDto.email, signInDto.password);
   }
-
-  @UseGuards(AuthGuard)
-  @Get('me')
-  getProfile(@CurrentUser() user: any) {
-    return user;
-  }
 }

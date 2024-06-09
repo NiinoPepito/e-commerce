@@ -81,16 +81,16 @@ const UpdateProducts = () => {
     return (
         <div className={`flex items-center justify-center bg-[#242424] ${selectedProduct ? 'h-[calc(100vh-15rem)]' : 'h-[calc(100vh-36rem)]'}`}>
             <div className="bg-gray-800 text-white p-8 rounded-lg shadow-lg w-full max-w-3xl">
-                <h1 className="text-3xl font-bold mb-4 text-center">Update Product</h1>
+                <h1 className="text-3xl font-bold mb-4 text-center">Modifier un produit</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="product">Select Product</label>
+                        <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="product">Sélectionner un produit</label>
                         <select
                             id="product"
                             onChange={handleProductChange}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         >
-                            <option value="">Select a product</option>
+                            <option value="">Sélectionner un produit</option>
                             {products.map(product => (
                                 <option key={product.id} value={product.id}>ID : {product.id} | {product.title}</option>
                             ))}
@@ -100,40 +100,40 @@ const UpdateProducts = () => {
                         <>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="title">Title</label>
+                                    <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="title">Titre</label>
                                     <input
                                         type="text"
                                         id="title"
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        placeholder="Enter product title"
+                                        placeholder="Titre du produit"
                                         required
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="color">Color</label>
+                                    <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="color">Couleur</label>
                                     <input
                                         type="text"
                                         id="color"
                                         value={color}
                                         onChange={(e) => setColor(e.target.value)}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        placeholder="Enter product color"
+                                        placeholder="Couleur du produit"
                                         required
                                     />
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="price">Price</label>
+                                    <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="price">Prix</label>
                                     <input
                                         type="text"
                                         id="price"
                                         value={price}
                                         onChange={(e) => setPrice(e.target.value)}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        placeholder="Enter product price"
+                                        placeholder="Prix du produit"
                                         required
                                     />
                                 </div>
@@ -145,7 +145,7 @@ const UpdateProducts = () => {
                                         value={image}
                                         onChange={(e) => setImage(e.target.value)}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        placeholder="Enter product image URL"
+                                        placeholder="URL de l'image"
                                         required
                                     />
                                 </div>
@@ -157,7 +157,7 @@ const UpdateProducts = () => {
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    placeholder="Enter product description"
+                                    placeholder="Description du produit"
                                     required
                                 ></textarea>
                             </div>
@@ -171,7 +171,7 @@ const UpdateProducts = () => {
                                     type="submit"
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 >
-                                    Update Product
+                                    Modifier
                                 </button>
                             </div>
                         </>

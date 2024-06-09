@@ -8,6 +8,9 @@ const Product = () => {
 
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [quantity, setQuantity] = useState(1);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -25,8 +28,6 @@ const Product = () => {
         fetchProduct();
     }, [id]);
 
-    const [quantity, setQuantity] = useState(1);
-
     const decreaseQuantity = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
@@ -35,6 +36,45 @@ const Product = () => {
 
     const increaseQuantity = () => {
         setQuantity(quantity + 1);
+    };
+
+    const handleSubmit = async () => {
+        const token = localStorage.getItem('authToken');
+
+        if (!token) {
+            setErrorMessage('Veuillez vous connecter pour ajouter des produits au panier.');
+            setTimeout(() => setErrorMessage(''), 3000);  // Clear the message after 3 seconds
+            return;
+        }
+
+        const orderData = {
+            productId: parseInt(id, 10),  // Convert the product ID to an integer
+            quantity: quantity,
+        };
+
+        try {
+            const response = await fetch('http://localhost:8000/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(orderData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('Order successful:', data);
+            setSuccessMessage('Produit ajouté au panier avec succès!');
+            setTimeout(() => setSuccessMessage(''), 3000);  // Clear the message after 3 seconds
+        } catch (error) {
+            console.error('Error submitting order:', error);
+            setErrorMessage('Une erreur est survenue lors de l\'ajout au panier.');
+            setTimeout(() => setErrorMessage(''), 3000);  // Clear the message after 3 seconds
+        }
     };
 
     if (loading) {
@@ -62,9 +102,21 @@ const Product = () => {
                             +
                         </button>
                     </div>
-                    <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                    <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
+                            type="submit"
+                            onClick={handleSubmit}>
                         Ajouter au panier
                     </button>
+                    {successMessage && (
+                        <div className="mt-4 p-2 bg-green-100 text-green-700 rounded">
+                            {successMessage}
+                        </div>
+                    )}
+                    {errorMessage && (
+                        <div className="mt-4 p-2 bg-red-100 text-red-700 rounded">
+                            {errorMessage}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
